@@ -20,4 +20,6 @@ class TicketSerializer(serializers.ModelSerializer):
 
 class TicketCreateSerializer(serializers.Serializer):
         name = serializers.CharField(max_length=30)
-        
+        phone = serializers.CharField(max_length=30)
+        email = serializers.EmailField(max_length=30)
+        query = serializers.CharField(max_length=30)
