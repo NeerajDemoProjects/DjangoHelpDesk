@@ -4,6 +4,21 @@ from contact.models import Contact,Status
 
 from django.db import models
 from  email_configure.models import Message
+
+
+CUSTOMER_RATE_CHOICES = (
+    ("satisfied", "Satisfied"),
+    ("unsatisfied", "Unsatisfied"),
+)
+
+
+
+
+
+
+
+
+
 class PrefixedSerialNumberField(models.CharField):
     def __init__(self, prefix, *args, **kwargs):
         self.prefix = prefix
@@ -35,4 +50,8 @@ class Ticket(models.Model):
     state_id = models.ForeignKey(Status,null = True,on_delete=models.CASCADE)
     message_ids = models.ManyToManyField(Message)
     created_at = models.DateTimeField(auto_now_add=True)
-
+    is_expired = models.BooleanField(default=False)
+    is_rating = models.BooleanField(default=False)
+    custom_rate = models.CharField(
+        max_length=20,
+        choices=CUSTOMER_RATE_CHOICES)
