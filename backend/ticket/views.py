@@ -9,6 +9,8 @@ from email_configure.models import OutgoingEmailServer
 import smtplib
 from email.message import EmailMessage
 from django.db import IntegrityError
+import datetime
+import pytz
 
 
 def creation_email_ticket(EMAIL_TO):
@@ -94,8 +96,10 @@ class TicketClientList(ListAPIView):
         return Response(serializer.data)
 class CloseTicket(APIView):
     def put(self, request):
+
         id = request.data['id']
         ticket = Ticket.objects.get(id=id)
+        ticket.created_rating = datetime.datetime.now()
         if  not ticket.closed:
             message_id = ticket.message_ids.create(
                 name=request.user.username if request.user.id else ticket.contact_id.name,
@@ -105,6 +109,43 @@ class CloseTicket(APIView):
 
             ticket.save()
         return Response("Created Successfull", status=400)
+
+class RatingTicket(APIView):
+    def put(self, request):
+        id = request.data['id']
+        rating = request.data['rating']
+
+        ticket = Ticket.objects.get(id=id)
+        if ticket.is_expired:
+            return Response("The Link Expired", status=400)
+        else:
+            message_id = ticket.message_ids.create(
+                    name=request.user.username if request.user.id else ticket.contact_id.name,
+                    message="Rated the Ticket as "+rating)
+            ticket.message_ids.add(message_id)
+            ticket.is_expired = True
+            ticket.custom_rate = rating
+
+            ticket.save()
+            return Response("Created Successfull", status=400)
+
+    def get(self, request):
+        id = request.GET.get('id')
+        ticket = Ticket.objects.get(id=id)
+        max = ticket.created_rating+datetime.timedelta(minutes=30)
+
+
+        ticket.last_visited = datetime.datetime.now()
+        ticket.save()
+        ticket = Ticket.objects.get(id=id)
+
+        if max>ticket.last_visited:
+            ticket.is_expired = False
+        else:
+            ticket.is_expired = True
+        return Response(not ticket.is_expired)
+
+
 
 
 

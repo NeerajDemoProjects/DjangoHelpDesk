@@ -4,11 +4,14 @@ import Main from './Kanban/Main';
 import 'bootstrap/dist/css/bootstrap.css'
 import MainEnquiry from './Enquiry/MainEnquiry';
 import EnquiryFormView from './EnquiryView/Form';
+import CustomerRating from './Rating/RatingForm';
 
 function App() {
   return (
     <div className="App">
-<EnquiryFormView></EnquiryFormView>
+
+      <CustomerRating></CustomerRating>
+{/* <EnquiryFormView></EnquiryFormView> */}
 
 {/* <MainEnquiry></MainEnquiry>
 
