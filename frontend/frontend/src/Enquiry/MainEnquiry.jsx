@@ -4,7 +4,6 @@ import TicketSubmit from "./TicketSubmit";
 function MainEnquiry() {
     return ( <>
     <TicketSubmit></TicketSubmit>
-    <Chatter></Chatter>
     </> );
 }
 

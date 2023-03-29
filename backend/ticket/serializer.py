@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Ticket
+from  email_configure.models import Message
 from contact.models import Status,Contact
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,9 +12,16 @@ class StateSerializer(serializers.ModelSerializer):
         model = Status
         fields = '__all__'
 
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = '__all__'
+
+
 class TicketSerializer(serializers.ModelSerializer):
     contact_id = ContactSerializer()
     state_id = StateSerializer()
+    message_ids = MessageSerializer()
     class Meta:
         model = Ticket
         fields = "__all__"

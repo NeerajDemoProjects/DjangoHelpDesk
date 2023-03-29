@@ -13,7 +13,6 @@ from django.db import IntegrityError
 
 def creation_email_ticket(EMAIL_TO):
     email_configure = OutgoingEmailServer.objects.all().first()
-    print(email_configure)
     EMAIL_ADDRESS = email_configure.email_address
     EMAIL_PASS =  email_configure.email_password
     msg = EmailMessage()
@@ -54,6 +53,17 @@ class CreateTicket(APIView):
 
 
         return Response("Invalid request", status=404)
+    def put(self, request):
+         id =request.data['id']
+         message = request.data['message']
+         ticket = Ticket.objects.get(id=id)
+         message_id = ticket.message_ids.create(name='yes',message=message)
+         ticket.message_ids.add(message_id)
+         ticket.save()
+         return Response("Created Successfull", status=400)
+
+
+
 
 
     
@@ -65,3 +75,20 @@ class TicketList(ListAPIView):
         queryset = self.get_queryset()
         serializer = TicketSerializer(queryset, many=True)
         return Response(serializer.data)
+
+class TicketClientList(ListAPIView):
+    serializer_class=TicketSerializer
+    queryset = Ticket.objects.all()
+
+    def get(self, request):
+        queryset = self.get_queryset()
+        queryset=queryset.filter(id=request.GET.get('id'))
+        serializer = TicketSerializer(queryset, many=True)
+        ticket = Ticket.objects.get(id=request.GET.get('id'))
+        if ticket.is_expired:
+            return Response({"message":"The Link Has Expired"})
+        else:
+            return Response(serializer.data)
+
+
+
