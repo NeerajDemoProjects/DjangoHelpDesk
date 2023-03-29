@@ -45,8 +45,8 @@ class CreateTicket(APIView):
                 return Response(serializer.data, status=400)
 
             except IntegrityError as e:
-                contact = contact.objects.get(email=serializer.data['email'])
-                creation_email_ticket(contact.email)
+                contacts = Contact.objects.get(email=serializer.data['email'])
+                creation_email_ticket(contacts.email)
                 return Response(serializer.data, status=400)
 
 

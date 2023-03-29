@@ -3,7 +3,7 @@ from contact.models import Contact,Status
 # Create your models here.
 
 from django.db import models
-
+from  email_configure.models import Message
 class PrefixedSerialNumberField(models.CharField):
     def __init__(self, prefix, *args, **kwargs):
         self.prefix = prefix
@@ -26,10 +26,13 @@ class PrefixedSerialNumberField(models.CharField):
             model_instance.number = self.prefix + str(number).zfill(self.max_length - len(self.prefix))
         return super().pre_save(model_instance, add)
 
+
+
 class Ticket(models.Model):
     number = PrefixedSerialNumberField(prefix='TKT/2022/', unique=True)
     query = models.TextField(null = True)
     contact_id = models.ForeignKey(Contact,null = True, on_delete=models.CASCADE)
     state_id = models.ForeignKey(Status,null = True,on_delete=models.CASCADE)
+    message_ids = models.ManyToManyField(Message)
     created_at = models.DateTimeField(auto_now_add=True)
 

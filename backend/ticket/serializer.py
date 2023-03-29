@@ -18,6 +18,7 @@ class TicketSerializer(serializers.ModelSerializer):
         model = Ticket
         fields = "__all__"
 
+
 class TicketCreateSerializer(serializers.Serializer):
         name = serializers.CharField(max_length=30)
         phone = serializers.CharField(max_length=30)

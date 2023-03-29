@@ -1,5 +1,8 @@
 from django.db import models
 from django import forms
+class Message(models.Model):
+    name = models.CharField(max_length=30)
+    message = models.TextField()
 
 class OutgoingEmailServer(models.Model):
     email_address = models.EmailField()
