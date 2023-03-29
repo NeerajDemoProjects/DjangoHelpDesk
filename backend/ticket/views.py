@@ -54,15 +54,20 @@ class CreateTicket(APIView):
 
         return Response("Invalid request", status=404)
     def put(self, request):
+
          id =request.data['id']
          message = request.data['message']
          ticket = Ticket.objects.get(id=id)
-         message_id = ticket.message_ids.create(
-             name=request.user.username if request.user.id else ticket.contact_id.name,
-             message=message)
-         ticket.message_ids.add(message_id)
-         ticket.save()
-         return Response("Created Successfull", status=400)
+         if ticket.closed:
+             return Response("Ticket is closed", status=400)
+
+         else:
+             message_id = ticket.message_ids.create(
+                 name=request.user.username if request.user.id else ticket.contact_id.name,
+                 message=message)
+             ticket.message_ids.add(message_id)
+             ticket.save()
+             return Response("Created Successfull", status=400)
 
 
 
@@ -86,11 +91,20 @@ class TicketClientList(ListAPIView):
         queryset = self.get_queryset()
         queryset=queryset.filter(id=request.GET.get('id'))
         serializer = TicketSerializer(queryset, many=True)
-        ticket = Ticket.objects.get(id=request.GET.get('id'))
-        if ticket.is_expired:
-            return Response({"message":"The Link Has Expired"})
-        else:
-            return Response(serializer.data)
+        return Response(serializer.data)
+class CloseTicket(APIView):
+    def put(self, request):
+        id = request.data['id']
+        ticket = Ticket.objects.get(id=id)
+        if  not ticket.closed:
+            message_id = ticket.message_ids.create(
+                name=request.user.username if request.user.id else ticket.contact_id.name,
+                message="Closed the Ticket")
+            ticket.message_ids.add(message_id)
+            ticket.closed = True
+
+            ticket.save()
+        return Response("Created Successfull", status=400)
 
 
 

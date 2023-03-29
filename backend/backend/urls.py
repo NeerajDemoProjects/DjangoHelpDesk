@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ticket.views import TicketList,CreateTicket,TicketClientList
+from ticket.views import TicketList,CreateTicket,TicketClientList,CloseTicket
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/get/ticket',TicketList.as_view()),
     path('api/create/ticket',CreateTicket.as_view()),
-    path('api/get/client/ticket', TicketClientList.as_view())
+    path('api/get/client/ticket', TicketClientList.as_view()),
+    path('api/get/close/ticket', CloseTicket.as_view())
 
 ]

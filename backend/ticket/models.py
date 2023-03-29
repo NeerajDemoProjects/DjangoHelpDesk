@@ -51,6 +51,7 @@ class Ticket(models.Model):
     message_ids = models.ManyToManyField(Message)
     created_at = models.DateTimeField(auto_now_add=True)
     is_expired = models.BooleanField(default=False)
+    closed = models.BooleanField(default=False)
     is_rating = models.BooleanField(default=False)
     custom_rate = models.CharField(
         max_length=20,

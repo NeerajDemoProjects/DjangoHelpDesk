@@ -12,6 +12,7 @@ function EnquiryFormView() {
             setTicket(response.data);
         });
       }, []);
+    const handleClose =(id)=>{axios.put('http://127.0.0.1:8000/api/get/close/ticket',{'id':id})}
 
     return (<>
     {ticket.map((ticket)=>(
@@ -24,7 +25,7 @@ function EnquiryFormView() {
 <div class="d-flex w-100 justify-content-between">
 <h5 class="mb-1">{ticket.number}</h5>
 <small class="text-muted">{ticket.created_at}</small>
-<button type="button" class="btn btn-info">Info</button>
+<button type="button" class="btn btn-info" onClick={()=>{handleClose(ticket.id)}}>Close Ticket</button>
 
 </div>
 <p class="mb-1">{ticket.contact_id.name}</p>
