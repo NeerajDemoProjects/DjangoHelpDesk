@@ -13,6 +13,8 @@ function Chatter(props) {
 
 
         })
+        window.location.reload();
+
     }
     return (  <>
     <br></br>

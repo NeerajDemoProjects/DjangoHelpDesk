@@ -57,7 +57,9 @@ class CreateTicket(APIView):
          id =request.data['id']
          message = request.data['message']
          ticket = Ticket.objects.get(id=id)
-         message_id = ticket.message_ids.create(name='yes',message=message)
+         message_id = ticket.message_ids.create(
+             name=request.user.username if request.user.id else ticket.contact_id.name,
+             message=message)
          ticket.message_ids.add(message_id)
          ticket.save()
          return Response("Created Successfull", status=400)
