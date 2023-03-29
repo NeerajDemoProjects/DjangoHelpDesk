@@ -21,7 +21,7 @@ class MessageSerializer(serializers.ModelSerializer):
 class TicketSerializer(serializers.ModelSerializer):
     contact_id = ContactSerializer()
     state_id = StateSerializer()
-    message_ids = MessageSerializer()
+    message_ids = MessageSerializer(many=True)
     class Meta:
         model = Ticket
         fields = "__all__"

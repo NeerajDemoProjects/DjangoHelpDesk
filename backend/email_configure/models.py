@@ -3,6 +3,7 @@ from django import forms
 class Message(models.Model):
     name = models.CharField(max_length=30)
     message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
 class OutgoingEmailServer(models.Model):
     email_address = models.EmailField()
