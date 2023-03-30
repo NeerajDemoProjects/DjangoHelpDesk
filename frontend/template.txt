@@ -1,0 +1,109 @@
+Rating template
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  
+
+
+    <div class="container">
+        <div class="list-group">
+
+            <div class="list-group-item  " style="padding: 0px; height:100%">
+                <nav class="navbar navbar-dark bg-primary">
+                    <a class="navbar-brand" href="#"></a>
+
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1"></h5>
+                      </div>                  </nav>
+                      <div style="justify-content: center; text-align: center; padding: 1%;font-size: 24px;text-shadow: 1ch;">
+                        <p><strong>Name : </strong>{{ticket.name}}</p>
+                        <p><strong>Phone : </strong> {{ticket.phone}}</p>
+                        <p><strong>Email : </strong> {{ticket.email}}</p>
+
+        
+                    </div>
+            <div style="justify-content: center; text-align: center; padding: 10%;font-size: 24px;text-shadow: 1ch;">
+<p> Hello {{ticket.name}},</p>
+<br></br>
+Please take a moment to rate our services related to the ticket <strong>{{ticket.number}}</strong>
+
+<a href={{ticket.url}} class="btn btn-secondary">
+
+                <button type="button" >View Ticket </button>
+
+</a>
+            </div>
+
+          </div>
+
+    </div>
+
+
+
+    
+</body>
+</html>
+
+
+
+
+Ticket Template
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  
+
+
+    <div class="container">
+        <div class="list-group">
+
+            <div class="list-group-item  " style="padding: 0px; height:100%">
+                <nav class="navbar navbar-dark bg-primary">
+                    <a class="navbar-brand" href="#"></a>
+
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1"></h5>
+                      </div>                  </nav>
+                      <div style="justify-content: center; text-align: center; padding: 1%;font-size: 24px;text-shadow: 1ch;">
+                        <p><strong>Name : </strong>{{ticket.name}}</p>
+                        <p><strong>Phone : </strong> {{ticket.phone}}</p>
+                        <p><strong>Email : </strong> {{ticket.email}}</p>
+
+        
+                    </div>
+            <div style="justify-content: center; text-align: center; padding: 10%;font-size: 24px;text-shadow: 1ch;">
+                Your ticket <strong> {{ticket.number}} </strong> was successfully submitted!<br>
+
+
+<a href={{ticket.url}} class="btn btn-secondary">
+
+                <button type="button" >View Ticket</button>
+
+</a>
+            </div>
+
+          </div>
+
+    </div>
+
+
+
+    
+</body>
+</html>

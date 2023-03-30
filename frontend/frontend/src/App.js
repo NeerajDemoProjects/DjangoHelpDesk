@@ -10,12 +10,12 @@ function App() {
   return (
     <div className="App">
 
-      <CustomerRating></CustomerRating>
-{/* <EnquiryFormView></EnquiryFormView> */}
+      {/* <CustomerRating></CustomerRating> */}
+<EnquiryFormView></EnquiryFormView>
 
-{/* <MainEnquiry></MainEnquiry>
+ <MainEnquiry></MainEnquiry>
 
-    <Main></Main> */}
+    {/* <Main></Main>  */}
     </div>
   );
 }
